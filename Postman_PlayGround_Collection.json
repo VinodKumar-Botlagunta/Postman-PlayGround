@@ -1,0 +1,178 @@
+{
+	"info": {
+		"_postman_id": "f19b46c3-e583-4cef-9dd7-d166d31abfe4",
+		"name": "QA_Variables_Practise1",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "37216099"
+	},
+	"item": [
+		{
+			"name": "AddBook_QA",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let randomNumber = \"BookID\"+Math.floor(Math.random()*12345689);\r",
+							"pm.globals.set(\"isbn\", randomNumber);\r",
+							"console.log(pm.globals.get(\"isbn\"));\r",
+							"let bookIDVar = randomNumber+\"227\";\r",
+							"pm.collectionVariables.set(\"bookID\",bookIDVar);\r",
+							"console.log(bookIDVar);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"API\",\r\n    \"isbn\": \"{{isbn}}\",\r\n    \"aisle\": \"227\",\r\n    \"author\":\"John\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/Library/Addbook.php",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"Library",
+						"Addbook.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetBookByAuthorName",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURL}}/Library/GetBook.php?AuthorName=John",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"Library",
+						"GetBook.php"
+					],
+					"query": [
+						{
+							"key": "AuthorName",
+							"value": "John"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetBookByID",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"console.log(pm.globals.get(\"isbn\"));\r",
+							"let getValue = pm.globals.get(\"isbn\")+\"227\";\r",
+							"pm.globals.set(\"isbn\", getValue);\r",
+							"console.log(getValue);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURL}}/Library/GetBook.php?ID={{bookID}}",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"Library",
+						"GetBook.php"
+					],
+					"query": [
+						{
+							"key": "ID",
+							"value": "{{bookID}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteBookByID",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"ID\": \"{{bookID}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/Library/DeleteBook.php",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"Library",
+						"DeleteBook.php"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "bookID",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "authorName",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
