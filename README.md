@@ -6,7 +6,7 @@ Welcome to **Postman PlayGround**! This repository contains a beginner-friendly 
 
 This collection provides practical examples of:
 
-- **POST** request to add a book.
+- **POST** request to add a book. 
 - **GET** requests to retrieve book details by author or ID.
 - **DELETE** request to remove a book.
 
